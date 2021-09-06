@@ -7,7 +7,7 @@
 #### Input: bam
 #### Output: snp.out.vcf and indel.out.vcf
 #### Dependencies: Java, GATK (picard), samtools, GNU Parallel.
-#### Written by: Gamze Gursoy, Huiya Gu & Olga Dudchenko, 09/05/2021 [updated from version date 07/25/2021, 08/20/2020, 8/11/2020]
+#### Written by: Olga Dudchenko, with contributions from Huiya Gu and Gamze Gursoy. Version: 09/05/2021 [updated from version date 07/25/2021, 08/20/2020, 8/11/2020].
 
 # cluster-specific
 spack load samtools@1.13 arch=$(spack arch)
