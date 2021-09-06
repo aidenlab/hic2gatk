@@ -19,7 +19,7 @@ echo "*****************************************************" >&1
 
 USAGE="
 *****************************************************
-Call SNPs from ENCODE DCC Hi-C pipeline (Juicer2). Original version: 8/11/2020. Current version: 7/25/2021.
+Call SNPs from ENCODE DCC Hi-C pipeline (Juicer2). Original version: 7/25/2021. Current version: 09/05/2021.
 
 USAGE: ./run-gatk-after-juicer2.sh [options] <path_to_aligned_dedupped_bam>
 
@@ -372,7 +372,7 @@ if [ "$first_stage" == "prep" ]; then
 	refbasename=`basename $refbasename .fa`
 	refbasename=`basename $refbasename .fna`
 	refbasename=`basename $refbasename .fasta`
-	[ -f ${reference%.*}".dict" ] && ln -sf ${reference%.*}".dict" . || picard CreateSequenceDictionary R=$reference O="$refbasename.dict"
+	[ -f ${reference%.*}".dict" ] && ln -sf ${reference%.*}".dict" . || gatk CreateSequenceDictionary R=$reference O="$refbasename.dict"
 	
 	echo "	...Looking for "${reference%.*}".interval_list."
 	[ -f ${reference%.*}".interval_list" ] && ln -sf ${reference%.*}".interval_list" . || gatk ScatterIntervalsByNs R=$reference OT=ACGT N=500 O="$refbasename.interval_list"
