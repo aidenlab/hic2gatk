@@ -37,7 +37,7 @@ OPTIONS:
 						Pointer to reference that was used to process the Hi-C data. Required.
 
 -c|--coverage [approx_clean_coverage_in_X_of_genomes]
-						Target coverage in terms of \"clean\" alignment data. If bam coverage exceeds the target the reads will be subsampled to perform SNP calling. Set to 0 to disable. Default: 15.
+						Target coverage in terms of \"clean\" alignment data. If bam coverage exceeds the target the reads will be subsampled to perform SNP calling. Set to 0 to disable. Default: 30.
 
 -f|--fraction [fraction_of_input_bam_to_be_used]
 						Fraction of alignment data to be used for subsampling. Overrides the targe coverage parameter. Deafult: 1.0.
@@ -45,7 +45,7 @@ OPTIONS:
 GATK CONTROL:
 
 --gatk-bundle <path_to_GATK_bundle>
-						Shortcut to use GATK resources for base recalibration and variant recalibration when processign human data. For non-human data pass known vcf files if available explicitely with --known-sites-for-base-recalibration, --known-sites-for-snp-recalibration and --known-sites-for-indel-recalibration options.
+						Shortcut to use GATK resources for base recalibration and variant recalibration when processing human data. For non-human data pass known vcf files if available explicitely with --known-sites-for-base-recalibration, --known-sites-for-snp-recalibration and --known-sites-for-indel-recalibration options.
 
 --known-sites-for-base-recalibration <path_to_vcf_file_w_known_polymorphisms>
 						Use set of variants from a given vcf file for base recalibration. Multiple vcf files can be passed with multiple option invocations.
@@ -65,7 +65,7 @@ GATK CONTROL:
 HIC-SPECIFIC CONTROL:
 
 --restriction-site-file <path_to_restriction_site_file>
-						Pass the restriction site file when processign a Hi-C experiment generated with a known restriction enzyme to exclude regions immediately around the cut site from SNP analysis. [Default: ignore].
+						Pass the restriction site file when processign a Hi-C experiment generated with a known restriction enzyme to exclude regions immediately around the cut site from SNP analysis. Default: ignore option.
 						
 --exclusion-interval [num_in_bp]
  						Use this option to tweak the padding aroun the restriction site position. Default: 5bp.						
