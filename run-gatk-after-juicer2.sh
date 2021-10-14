@@ -403,7 +403,7 @@ if [ "$first_stage" == "sort" ]; then
 	
 	echo "...Sorting bam." >&1
 
-	if [[ -z fraction ]]; then
+	if [[ -z ${fraction} ]]; then
 		fraction="1.0"
 		if [[ ${target_coverage} -ne 0 ]]; then
 		{
