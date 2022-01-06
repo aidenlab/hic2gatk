@@ -502,7 +502,7 @@ if [ "$first_stage" == "genotype" ]; then
 	# cleanup
 	seq 1 $threads | parallel --will-cite "rm reads.prepped_{}.bam reads.prepped_{}.bai"
 
-	arg=$(seq 1 $threads | parallel --will-cite "printf -- \" -I %s\" raw_{}.vcf")
+	arg=$(seq 1 $threads | parallel --will-cite -k "printf -- \" -I %s\" raw_{}.vcf")
 	gatk --java-options "-Xmx4G" GatherVcfs -R $reference $arg -O raw.vcf
 	[ $? -eq 0 ] || { echo ":( Failed at GATK GatherVcfs. See err stream for more info. Exiting!" | tee -a /dev/stderr && exit 1; }
 
