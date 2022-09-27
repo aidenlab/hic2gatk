@@ -42,6 +42,8 @@ OPTIONS:
 
 -f|--fraction [fraction_of_input_bam_to_be_used]
 						Fraction of alignment data to be used for subsampling. Overrides the targe coverage parameter. Deafult: 1.0.
+-s|--sample [sample_name]
+						Overwrite sample information.
 
 GATK CONTROL:
 
@@ -167,6 +169,11 @@ while :; do
 					exit 1
 			fi        	
         	shift		
+		;;
+		-s|--sample) OPTARG=$2
+			echo " -s|--sample frag was triggered. Will overwrite all SM tags in bam(s)." >&1
+			sample_name=$OPTARG
+			shift;
 		;;
         --gatk-bundle) OPTARG=$2
         	if [ -d $OPTARG ]; then
@@ -432,7 +439,8 @@ if [ "$first_stage" == "sort" ]; then
 	fi 
 
 	# make header for the merged file pipe
-	parallel --will-cite "samtools view -H {} > {}_header.bam" ::: $bam
+	[ -z ${sample_name} ] && parallel --will-cite "samtools view -H {} > {}_header.bam" ::: $bam || parallel --will-cite "samtools view -H {} | sed \"s/SM:[^\t]*/SM:"${sample_name}"/g\" > {}_header.bam" ::: $bam
+	
 	header_list=`parallel --will-cite "printf %s' ' {}_header.bam" ::: $bam`
 	samtools merge --no-PG -f mega_header.bam ${header_list}
 	rm ${header_list}
