@@ -439,9 +439,9 @@ if [ "$first_stage" == "sort" ]; then
 	fi 
 
 	# make header for the merged file pipe
-	[ -z ${sample_name} ] && parallel --will-cite "samtools view -H {} > {}_header.bam" ::: $bam || parallel --will-cite "samtools view -H {} | sed \"s/SM:[^\t]*/SM:"${sample_name}"/g\" > {}_header.bam" ::: $bam
+	[ -z ${sample_name} ] && parallel --will-cite "samtools view -H {} > {}_header.sam" ::: $bam || parallel --will-cite "samtools view -H {} | sed \"/^@RG/s/SM:[^\t]*/SM:"${sample_name}"/g\" > {}_header.sam" ::: $bam
 	
-	header_list=`parallel --will-cite "printf %s' ' {}_header.bam" ::: $bam`
+	header_list=`parallel --will-cite "printf %s' ' {}_header.sam" ::: $bam`
 	samtools merge --no-PG -f mega_header.bam ${header_list}
 	rm ${header_list}
 
